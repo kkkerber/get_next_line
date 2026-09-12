@@ -32,12 +32,23 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
+static void	ft_copy(char *dst, const char *src, size_t *i)
+{
+	size_t	j;
+
+	j = 0;
+	while (src && src[j])
+	{
+		dst[*i] = src[j];
+		(*i)++;
+		j++;
+	}
+}
 char	*ft_strjoin(char *stash, char *buffer)
 {
 	size_t	len_stash;
 	size_t	len_buffer;
 	size_t	i;
-	size_t	j;
 	char	*str;
 
 	len_stash = ft_strlen(stash);
@@ -46,18 +57,8 @@ char	*ft_strjoin(char *stash, char *buffer)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (stash && stash[i])
-	{
-		str[i] = stash[i];
-		i++;
-	}
-	j = 0;
-	while (buffer[j])
-	{
-		str[i] = buffer[j];
-		i++;
-		j++;
-	}
+	ft_copy(str, stash, &i);
+	ft_copy(str, buffer, &i);
 	str[i] = '\0';
 	return (str);
 }
